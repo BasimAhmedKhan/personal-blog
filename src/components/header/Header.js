@@ -17,7 +17,7 @@ export default function Header() {
         <ul>
           <li>
             <Link href="/">
-              <h2>PERSONAL BLOGGING APP</h2>
+              <h2 className="white">PERSONAL BLOGGING APP</h2>
             </Link>
           </li>
         </ul>
