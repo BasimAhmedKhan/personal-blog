@@ -20,7 +20,7 @@ export default function Blogs({ blog }) {
               />
             }
           >
-            <Meta title="Username" />
+            <Meta title={blog.userEmail} />
           </Card>
         </div>
         <div className="md:flex-grow">

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Blogs from '@/components/blogs/Blogs';
 import Link from 'next/link';
+import { getByUserEmail } from '@/services/blogs';
 
 export default function Home({ blogs }) {
   return (
@@ -28,8 +29,8 @@ export default function Home({ blogs }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
-  const user_email = req.query.email;
+export async function getServerSideProps({ req, query }) {
+  const user_email = query.email;
   const data = getByUserEmail(user_email);
 
   return {
