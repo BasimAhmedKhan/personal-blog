@@ -20,7 +20,7 @@ export function getAll () {
 export function create (blog) {
   const data = getAll();
   const lastBlog = data[data.length - 1];
-  const lastId = lastBlog.id;
+  const lastId = lastBlog?.id ?? 0;
   const newBlog = {
     ...blog,
     id: lastId + 1,
@@ -38,13 +38,11 @@ export function getById (id) {
 
 export function getByUserEmail (userEmail) {
   const data = getAll();
-  return data.find(p => p.userEmail.toLowerCase() === userEmail.toLowerCase());
+  return data.filter(p => p.userEmail.toLowerCase() === userEmail.toLowerCase());
 }
 
 export function deleteById (id) {
   const data = getAll();
   const index = data.findIndex(p => p.id === Number(id));
   data.splice(index, 1);
-
-
 }

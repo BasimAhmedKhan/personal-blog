@@ -22,9 +22,9 @@ export default function handler(req, res) {
     const {
       title,
       content,
-      userId,
+      userEmail,
     } = req.body;
-    if (!title || !content || !userId) {
+    if (!title || !content || !userEmail) {
       res.status(400).json({ message: "Invalid body" });
       return;
     }
