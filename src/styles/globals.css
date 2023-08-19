@@ -2,26 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&display=swap');
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --grey: rgba(255, 255, 255, 0.5);
+    --orange: hsl(22, 64%, 57%);
+    --black: #191919;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.margin {
+    margin: 0rem 7rem;
+}
+
+li {
+    list-style-type: none;
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2{
+    font-size: 1rem;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--grey);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.marginTB {
+    margin: 5rem 7rem;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.height100 {
+    height: 100%;
+}
+
+.b-radius {
+    border-radius: 0.5rem;
+}
+
+.childsMargin>* {
+    margin-bottom: 1rem;
+}
+
+.white {
+    color: white;
 }
