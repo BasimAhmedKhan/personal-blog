@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 
 export default function Header() {
   const session = useSession();
-  const currentPath = useRouter().asPath;
+  const router = useRouter();
+  const currentPath = router.asPath;
 
   console.log(session);
   return (
@@ -40,6 +41,9 @@ export default function Header() {
                     await signOut({
                       redirect: false,
                     });
+                    if (currentPath !== "/") {
+                      router.replace("/");
+                    }
                   }}
                 >
                   Log out

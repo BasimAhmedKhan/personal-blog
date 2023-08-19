@@ -24,6 +24,23 @@ export async function verifyPassword (hashedPassword, password) {
     return isValid;
 }
 
+export async function changePassword (email, oldPassword, newPassword) {
+    const user = getByEmail(email);
+    if (!user) {
+        throw new Error("User not found.");
+    }
+    const isValid = await verifyPassword(user.password, oldPassword);
+    if (!isValid) {
+        throw new Error("Old password is incorrect.");
+    }
+    const hashedPassword = await hash(newPassword, 12);
+    user.password = hashedPassword;
+    const data = getAll();
+    const index = data.findIndex(p => p.id === user.id);
+    data[index] = user;
+    fs.writeFileSync(filePath, JSON.stringify(data));
+}
+
 export async function save (email, password, firstName, lastName) {
     const found = getByEmail(email);
     if (found) {
