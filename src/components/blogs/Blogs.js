@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 const { Meta } = Card;
 
-function DeleteModal({ closeModal }) {
+function DeleteModal({ closeModal, onDeleteConfirm }) {
   // tailwind delete modaal ui
   return (
     <div className="fixed z-10 inset-0">
@@ -27,7 +27,7 @@ function DeleteModal({ closeModal }) {
                 <div className="flex justify-end">
                   <button
                     className=" text-red-700 hover:underline font-bold py-2 px-4 rounded"
-                    onClick={(e) => {closeModal()}}
+                    onClick={(e) => {onDeleteConfirm()}}
                   >
                     Delete
                   </button>
@@ -63,7 +63,7 @@ export default function Blogs({ blog, canDelete }) {
 
     if (res.status === 200) {
       setIsDeleteModalShow(false);
-      toast.error("Blog deleted successfully");
+      toast.success("Blog deleted successfully");
     }
   }
 
