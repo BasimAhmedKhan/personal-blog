@@ -60,7 +60,7 @@ export default function Profile ({ session }) {
                 <h1 className='text-violet-800'>Profile</h1>
                 <div className="profileBody center bg-slate-200 b-radius flex-col" style={{ height: '50rem', width: '40rem' }}>
                     <Card
-                        style={{ width: '30rem' }}
+                        style={{ width: '25rem'}}
                         cover={
                             <img
                                 alt="example"
@@ -84,7 +84,7 @@ export default function Profile ({ session }) {
                             description="This is the description"
                         /> */}
                     </Card>
-                    <h2>{session?.user.name}</h2>
+                    <h2 style={{fontSize: '1.5rem'}}>{session?.user.name}</h2>
                     <Form
                         name="normal_login"
                         className="login-form"
