@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const { Meta } = Card;
 
-export default function Blogs({ blog }) {
+export default function Blogs({ blog, canDelete }) {
   const fileList = [];
   if (!blog) return null;
   return (

@@ -1,10 +1,11 @@
 import Blogs from "@/components/blogs/Blogs";
 import { getAll } from "@/services/blogs";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 
-export default function Dashboard({ blogs, session }) {
-  console.log(session, blogs);
+export default function Dashboard({ blogs }) {
+  const session = useSession();
+
   return (
     <main>
       <Head>
@@ -15,14 +16,21 @@ export default function Dashboard({ blogs, session }) {
       </Head>
       <section className="text-gray-600 body-font overflow-hidden marginTB b-radius">
         <div className="container px-5 py-24 mx-auto">
-          {session && (
+          {session.status === "authenticated" && (
             <div className="">
               logged in
             </div>
           )}
           <div className="-my-8 divide-y-2 divide-gray-100">
             {blogs.map((blog) => (
-              <Blogs blog={blog} key={blog.id} />
+              <Blogs
+                blog={blog}
+                key={blog.id}
+                canDelete={
+                  session.status === "authenticated" &&
+                  session.data.user.email === blog.userEmail
+                }
+              />
             ))}
           </div>
         </div>
@@ -33,12 +41,10 @@ export default function Dashboard({ blogs, session }) {
 
 export async function getServerSideProps({ req }) {
   const data = getAll();
-  const session = await getSession({ req });
 
   return {
     props: {
       blogs: data,
-      session,
     },
   };
 }
