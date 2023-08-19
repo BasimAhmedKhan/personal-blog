@@ -14,9 +14,12 @@ export default function Dashboard({ blogs }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon.png" />
       </Head>
+      {session.status === "authenticated" && (
       <section class="text-gray-600 body-font relative">
         <div class="container px-5 py-24 mx-auto">
-          <div class="lg:w-1/2 md:w-2/3 mx-auto">
+          <form class="lg:w-1/2 md:w-2/3 mx-auto" onSubmit={(e) => {
+            e.preventDefault();
+          }}>
             <div class="flex flex-wrap -m-2">
               <div class="p-2 w-full">
                 <h1>Dashboard</h1>
@@ -33,16 +36,12 @@ export default function Dashboard({ blogs }) {
                 <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
+      )}
       <section className="text-gray-600 body-font overflow-hidden margin b-radius">
         <div className="container px-5 py-24 mx-auto">
-          {session.status === "authenticated" && (
-            <div className="">
-              logged in
-            </div>
-          )}
           <div className="-my-8 divide-y-2 divide-gray-100">
             {blogs.map((blog) => (
               <Blogs
