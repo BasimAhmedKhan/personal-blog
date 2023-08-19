@@ -24,12 +24,14 @@ export default function Header() {
           {session.status === "authenticated" ? (
             <>
               <li>
-                <Link className="white" href="/">
+                <Link className="white" href="/profile">
                   <Avatar size="large" icon={<UserOutlined />} />
                 </Link>
               </li>
               <li>
-                <span>{}</span>
+                <Link className="white" href="/profile">
+                  {session.data.user.name}
+                </Link>
               </li>
               <li>
                 <button

@@ -18,7 +18,7 @@ export const authOptions = {
                     throw new Error("Incorrect Password");
                 }
 
-                return { email, firstName: user.firstName, lastName: user.lastName };
+                return { email, name: `${user.firstName} ${user.lastName}` };
             }
         }),
     ],

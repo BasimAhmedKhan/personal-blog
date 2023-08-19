@@ -8,16 +8,16 @@ import { toast } from 'react-hot-toast';
 export default function Signup () {
     const router = useRouter();
     const onSubmit = async ({firstName, lastName, email, password}) => {
-        if (password.test(/[A-Z]/)) {
+        console.log({firstName, lastName, email, password});
+        if (password.match(/[A-Z]/) === null) {
             toast.error("Password must contain at least one uppercase letter");
             return;
         }
-        if (password.test(/[a-z]/)) {
+        if (password.match(/[a-z]/) === null) {
             toast.error("Password must contain at least one lowercase letter");
             return;
         }
         try {
-            console.log({firstName, lastName, email, password});
             const response = await fetch("/api/auth/signup", {
                 method: "POST",
                 body: JSON.stringify({firstName, lastName, email, password}),
@@ -119,7 +119,9 @@ export default function Signup () {
                             <Button type="primary" htmlType="submit" className="login-form-button bg-violet-800 width100">
                                 Sign up
                             </Button>
-                            Or Already have an account? <Link href="/signup">Log in!</Link>
+                            <div className='mt-2'>
+                                Or Already have an account? <Link href="/auth/login">Log in!</Link>
+                            </div>
                         </Form.Item>
                     </Form>
                 </div>

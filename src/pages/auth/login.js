@@ -68,10 +68,12 @@ export default function SignIn() {
                     </Form.Item> */}
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button mt-2 bg-violet-800 width100">
+                        <Button type="primary" htmlType="submit" className="login-form-button bg-violet-800 width100">
                             Log in
                         </Button>
+                        <div className='mt-2'>
                         {"Or Don't have an account? "}<Link href="/auth/signup">Register now!</Link>
+                        </div>
                     </Form.Item>
                 </Form>
             </div>
