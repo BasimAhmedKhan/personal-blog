@@ -1,8 +1,10 @@
-import Image from 'next/image';
-import Head from 'next/head';
+import Blogs from "@/components/blogs/Blogs";
+import { getAll } from "@/services/blogs";
+import { getSession } from "next-auth/react";
+import Head from "next/head";
 
-export default function Home() {
-
+export default function Dashboard({ blogs, session }) {
+  console.log(session, blogs);
   return (
     <main>
       <Head>
@@ -11,7 +13,32 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon.png" />
       </Head>
-      <h1>Hello</h1>
+      <section className="text-gray-600 body-font overflow-hidden marginTB b-radius">
+        <div className="container px-5 py-24 mx-auto">
+          {session && (
+            <div className="">
+              logged in
+            </div>
+          )}
+          <div className="-my-8 divide-y-2 divide-gray-100">
+            {blogs.map((blog) => (
+              <Blogs blog={blog} key={blog.id} />
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const data = getAll();
+  const session = await getSession({ req });
+
+  return {
+    props: {
+      blogs: data,
+      session,
+    },
+  };
 }
