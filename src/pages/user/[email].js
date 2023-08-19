@@ -3,8 +3,11 @@ import Head from 'next/head';
 import Blogs from '@/components/blogs/Blogs';
 import Link from 'next/link';
 import { getByUserEmail } from '@/services/blogs';
+import { useRouter } from 'next/router';
 
 export default function Home({ blogs }) {
+  const router = useRouter;
+  const email = router.query;
   return (
     <main>
       <Head>
@@ -14,16 +17,17 @@ export default function Home({ blogs }) {
         <link rel="icon" href="/icon.png" />
       </Head>
       <section className="text-gray-600 body-font overflow-hidden marginTB b-radius">
-          <Link href="/">
-            dashboard
-          </Link>
-          <div className="container px-5 py-24 mx-auto">
-              <div className="-my-8 divide-y-2 divide-gray-100">
-                {blogs.map((blog) => (
-                  <Blogs blog={blog} key={blog.id} />
-                ))}
-              </div>
+        <Link href="/">
+          Go back to dashboard
+        </Link>
+        <div className="container px-5 py-24 mx-auto">
+          <h1 className='text-violet-800'> All Blogs</h1>
+          <div className="-my-8 divide-y-2 divide-gray-100">
+            {blogs.map((blog) => (
+              <Blogs blog={blog} key={blog.id} />
+            ))}
           </div>
+        </div>
       </section >
     </main>
   );

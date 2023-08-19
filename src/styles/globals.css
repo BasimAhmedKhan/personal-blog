@@ -76,3 +76,42 @@ a {
 .white {
     color: white;
 }
+
+@media only screen and (max-width: 300px) {
+    :root {
+        font-size: 8px;
+    }
+    .marginTB {
+        margin: 0rem 1rem;
+    }
+}
+
+@media only screen and (min-width: 300px) {
+    :root {
+        font-size: 12px;
+    }
+    .marginTB {
+        margin: 0rem 1rem;
+    }
+}
+
+@media only screen and (min-width: 400px) {
+    :root {
+        font-size: 16px;
+    }
+    .marginTB {
+        margin: 0rem 3rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .marginTB {
+        margin: 0rem 5rem;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    :root {
+        font-size: 15px;
+    }
+}

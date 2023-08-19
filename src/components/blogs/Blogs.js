@@ -2,11 +2,16 @@ import { Card } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useRouter } from 'next/router';
 
 const { Meta } = Card;
 
 function DeleteModal({ closeModal, onDeleteConfirm }) {
   // tailwind delete modaal ui
+  const router = useRouter();
+  const handleRefresh = () => {
+    router.reload();
+  };
   return (
     <div className="fixed z-10 inset-0">
       <div className="flex items-end justify-center min-h-screen text-center sm:block sm:p-0">
@@ -27,7 +32,7 @@ function DeleteModal({ closeModal, onDeleteConfirm }) {
                 <div className="flex justify-end">
                   <button
                     className=" text-red-700 hover:underline font-bold py-2 px-4 rounded"
-                    onClick={(e) => {onDeleteConfirm()}}
+                    onClick={(e) => {onDeleteConfirm(), handleRefresh()}}
                   >
                     Delete
                   </button>
@@ -70,10 +75,10 @@ export default function Blogs({ blog, canDelete }) {
   return (
     <>
       <div className="py-8 flex flex-wrap md:flex-nowrap bg-slate-100 my-8">
-        <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col center">
+        <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 mx-auto flex flex-col center">
           <Card
             hoverable
-            style={{ width: "10rem", height: "12rem" }}
+            style={{ width: "14rem", height: "14rem" }}
             cover={
               <img
                 alt="example"
@@ -102,7 +107,7 @@ export default function Blogs({ blog, canDelete }) {
                 className="text-indigo-500 inline-flex items-center mt-4"
                 href={`/user/${blog.userEmail}`}
               >
-                see al this from user
+                see all from this user
                 <svg
                   class="w-4 h-4 ml-2"
                   viewBox="0 0 24 24"

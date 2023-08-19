@@ -3,10 +3,14 @@ import { getAll } from "@/services/blogs";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { toast } from "react-hot-toast";
+import { useRouter } from 'next/router';
 
 export default function Dashboard({ blogs }) {
   const session = useSession();
-
+  const router = useRouter();
+  const handleRefresh = () => {
+    router.reload();
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!session.data) {
@@ -78,7 +82,7 @@ export default function Dashboard({ blogs }) {
                 </div>
               </div>
               <div class="p-2 w-full">
-                <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                <button onClick={handleRefresh} class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
               </div>
             </div>
           </form>
@@ -87,6 +91,7 @@ export default function Dashboard({ blogs }) {
       )}
       <section className="text-gray-600 body-font overflow-hidden margin b-radius">
         <div className="container px-5 py-24 mx-auto">
+        <h1 className="text-violet-800">ALL BLOGS</h1>
           <div className="-my-8 divide-y-2 divide-gray-100">
             {blogs.map((blog) => (
               <Blogs
