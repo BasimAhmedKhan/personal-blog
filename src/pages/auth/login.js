@@ -4,16 +4,20 @@ import { signIn } from "next-auth/react";
 import { getSession } from "next-auth/react"
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import { toast } from 'react-hot-toast';
 
 export default function SignIn() {
     const router = useRouter()
-    const onSubmit = async (email, password) => {
+    const onSubmit = async ({ email, password }) => {
         const data = await signIn('credentials', { redirect: false, email, password });
         console.log(data);
         if (data.status === 200) {
             router.push("/");
+        } else {
+            toast.error(data.error)
         }
     };
+
     return (
         <section className='center' style={{ height: '100vh', flexDirection: 'column' }}>
             <h1 className='text-violet-800'>Login</h1>
@@ -27,11 +31,12 @@ export default function SignIn() {
                     onFinish={onSubmit}
                 >
                     <Form.Item
-                        name="username"
+                        name="email"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your Username!',
+                                message: 'Please input your email!',
+                                pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
                             },
                         ]}
                     >
@@ -52,7 +57,7 @@ export default function SignIn() {
                             placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item>
+                    {/* <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
@@ -60,13 +65,13 @@ export default function SignIn() {
                         <Link className="login-form-forgot" href="">
                             Forgot password
                         </Link>
-                    </Form.Item>
+                    </Form.Item> */}
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button bg-violet-800 width100">
+                        <Button type="primary" htmlType="submit" className="login-form-button mt-2 bg-violet-800 width100">
                             Log in
                         </Button>
-                        Or Don't have an account? <Link href="/login">Register now!</Link>
+                        {"Or Don't have an account? "}<Link href="/auth/signup">Register now!</Link>
                     </Form.Item>
                 </Form>
             </div>

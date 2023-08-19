@@ -1,10 +1,23 @@
 import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Upload } from 'antd';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
 
-export default function () {
-    const onSubmit = async (firstName, lastName, email, password) => {
+export default function Signup () {
+    const router = useRouter();
+    const onSubmit = async ({firstName, lastName, email, password}) => {
+        if (password.test(/[A-Z]/)) {
+            toast.error("Password must contain at least one uppercase letter");
+            return;
+        }
+        if (password.test(/[a-z]/)) {
+            toast.error("Password must contain at least one lowercase letter");
+            return;
+        }
         try {
+            console.log({firstName, lastName, email, password});
             const response = await fetch("/api/auth/signup", {
                 method: "POST",
                 body: JSON.stringify({firstName, lastName, email, password}),
@@ -13,16 +26,18 @@ export default function () {
                 }
             });
             if (response.ok) {
-                alert("Sign up successful");
+                console.log("Success");
+                const data = await signIn('credentials', { redirect: false, email, password });
+                console.log(data);
+                if (data.status === 200) {
+                    router.push("/");
+                }
             }
         } catch (err) {
             console.error(err);
         }
-        
     };
-    const fileList = [
 
-    ];
     return (
         <>
             <section className='center' style={{ height: '100vh', flexDirection: 'column' }}>
@@ -42,6 +57,8 @@ export default function () {
                                 {
                                     required: true,
                                     message: 'Please input your First Name!',
+                                    min: 3,
+                                    max: 20,
                                 },
                             ]}
                         >
@@ -53,6 +70,8 @@ export default function () {
                                 {
                                     required: true,
                                     message: 'Please input your Last Name!',
+                                    min: 1,
+                                    max: 20,
                                 },
                             ]}
                         >
@@ -60,10 +79,12 @@ export default function () {
                         </Form.Item>
                         <Form.Item
                             name="email"
+                            type="email"
                             rules={[
                                 {
                                     required: true,
                                     message: 'Please input your Email!',
+                                    pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                 },
                             ]}
                         >
@@ -75,6 +96,7 @@ export default function () {
                                 {
                                     required: true,
                                     message: 'Please input your Password!',
+                                    min: 8,
                                 },
                             ]}
                         >
@@ -88,7 +110,7 @@ export default function () {
                             <Upload
                                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                 listType="picture"
-                                defaultFileList={[...fileList]}
+                                defaultFileList={[]}
                             >
                                 <Button icon={<UploadOutlined />}>Upload Profile Picture</Button>
                             </Upload>

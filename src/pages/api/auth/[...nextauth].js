@@ -7,7 +7,6 @@ export const authOptions = {
         jwt: true
     },
     providers: [
-
         CredentialsProvider({
             async authorize({ email, password }) {
                 const user = getByEmail(email);
@@ -19,10 +18,9 @@ export const authOptions = {
                     throw new Error("Incorrect Password");
                 }
 
-                return { email };
+                return { email, firstName: user.firstName, lastName: user.lastName };
             }
         }),
-        // ...add more providers here
     ],
 }
 export default NextAuth(authOptions)

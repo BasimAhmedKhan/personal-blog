@@ -24,7 +24,7 @@ export async function verifyPassword (hashedPassword, password) {
     return isValid;
 }
 
-export async function save (email, password) {
+export async function save (email, password, firstName, lastName) {
     const found = getByEmail(email);
     if (found) {
         throw new Error("User already exist.");
@@ -34,6 +34,8 @@ export async function save (email, password) {
     data.push({
         id: data.length + 1,
         email,
+        firstName,
+        lastName,
         password: hashedPassword
     });
     fs.writeFileSync(filePath, JSON.stringify(data));
