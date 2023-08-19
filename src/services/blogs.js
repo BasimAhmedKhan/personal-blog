@@ -44,5 +44,9 @@ export function getByUserEmail (userEmail) {
 export function deleteById (id) {
   const data = getAll();
   const index = data.findIndex(p => p.id === Number(id));
+  const out = data[index];
+  if (index === -1) return false;
   data.splice(index, 1);
+  fs.writeFileSync(filePath, JSON.stringify(data));
+  return out;
 }
