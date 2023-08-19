@@ -19,6 +19,7 @@ export default function handler(req, res) {
       }
     }
   } else if (req.method === "POST") {
+    console.log(req.body);
     const {
       title,
       content,
